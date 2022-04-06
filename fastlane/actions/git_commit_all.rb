@@ -24,7 +24,7 @@ module Fastlane
 
       def self.authors
         # So no one will ever forget your contribution to fastlane :) You are awesome btw!
-        ["jinfeng"]
+        ["yunfei.fan"]
       end
 
       def self.is_supported?(platform)

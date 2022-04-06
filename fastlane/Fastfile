@@ -1,0 +1,64 @@
+fastlane_version "1.89.0"
+
+default_platform :mac
+
+platform :mac do
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+  
+  # fastlane release version:0.3.1
+  desc "Release new version"
+  lane :release do |options|
+      target_version = options[:version]
+      raise "The version is missed. Use `fastlane release version:{version_number}`.`" if target_version.nil?
+      
+      # git clean -df
+      # 从当前分支拉取代码进行打包 by:jinfeng.peng @2021/08/16
+      # 注释ensure_git_branch，可实现在当前分支打包，为了规范化统一打包在master分支下
+      ensure_git_branch
+      ensure_git_status_clean
+    #  scan
+      
+     # build_number = number_of_commits
+    #  increment_build_number(build_number: build_number)
+      
+    #  increment_version_number(version_number: target_version)
+
+      podspec_name = get_spec_name
+
+      version_bump_podspec(path: "#{podspec_name}.podspec", version_number: target_version)
+      
+      git_commit_all(message: "Bump version to #{target_version}")
+      add_git_tag tag: target_version
+      # 后期真正实现组件化的时候，可以添加source源，使用英文逗号分隔 by:jinfeng.peng @2021/08/16
+      push_to_git_remote
+      pod_push(sources: ["git@10.253.117.9:wuhan/ios/public/KSSpecs.git"], repo: "KSSpecs", path: "#{podspec_name}.podspec", allow_warnings: true, use_libraries: true)
+
+
+  end
+  
+  # fastlane podlint version:0.3.1
+  lane :podlint do |options|
+    target_version = options[:version]
+    raise "The version is missed. Use `fastlane release version:{version_number}`.`" if target_version.nil?
+  
+    # git clean -df
+    ensure_git_branch
+    ensure_git_status_clean
+
+    podspec_name = get_spec_name
+    version_bump_podspec(path: "#{podspec_name}.podspec", version_number: target_version)
+      
+    if git_tag_exists(tag: target_version, remote:true) then
+          UI.message("Found it 🚀")
+    else
+        git_commit_all(message: "Bump version to #{target_version}")
+        add_git_tag tag: target_version  
+        push_to_git_remote
+    end
+    # 后期真正实现组件化的时候，可以添加source源，使用英文逗号分隔  by:jinfeng.peng @2021/08/16 
+    pod_lib_lint(sources: ["git@10.253.117.9:wuhan/ios/public/KSSpecs.git"], allow_warnings: true, use_libraries: true)
+  end
+end

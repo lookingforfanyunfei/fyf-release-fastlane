@@ -34,7 +34,7 @@ platform :mac do
       add_git_tag tag: target_version
       # 后期真正实现组件化的时候，可以添加source源，使用英文逗号分隔 by:jinfeng.peng @2021/08/16
       push_to_git_remote
-      pod_push(sources: ["https://github.com/fanyunfei786452470/FYFSpecs.git"], repo: "FYFSpecs", path: "#{podspec_name}.podspec", allow_warnings: true, use_libraries: true)
+      pod_push(sources: ["https://github.com/lookingforfanyunfei/FYFSpecs.git"], repo: "FYFSpecs", path: "#{podspec_name}.podspec", allow_warnings: true, use_libraries: true)
 
 
   end
@@ -59,6 +59,6 @@ platform :mac do
         push_to_git_remote
     end
     # 后期真正实现组件化的时候，可以添加source源，使用英文逗号分隔  by:jinfeng.peng @2021/08/16 
-    pod_lib_lint(sources: ["https://github.com/fanyunfei786452470/FYFSpecs.git"], allow_warnings: true, use_libraries: true)
+    pod_lib_lint(sources: ["https://github.com/lookingforfanyunfei/FYFSpecs.git"], allow_warnings: true, use_libraries: true)
   end
 end

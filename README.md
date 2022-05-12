@@ -8,7 +8,7 @@
 1. 执行命令行
 
 ```shell
-pod lib create TestLib --template-url=https://github.com/fanyunfei786452470/fyf-pod-template.git
+pod lib create TestLib --template-url=https://github.com/lookingforfanyunfei/fyf-pod-template.git
 ```
 
 2. 移动代码
@@ -18,7 +18,7 @@ pod lib create TestLib --template-url=https://github.com/fanyunfei786452470/fyf-
 
 ```shell
 git commit -am "something."
-git remote add origin https://github.com/fanyunfei786452470/testlib.git
+git remote add origin https://github.com/lookingforfanyunfei/testlib.git
 git push
 git status # 提示 nothing to commit, working tree clean 即为正确
 ```
@@ -26,7 +26,7 @@ git status # 提示 nothing to commit, working tree clean 即为正确
 ##### Step3.如果是第一次使用，先执行
 
 ```shell
-pod repo add FYFSpecs https://github.com/fanyunfei786452470/FYFSpecs.git
+pod repo add FYFSpecs https://github.com/lookingforfanyunfei/FYFSpecs.git
 ```
 
 ##### Step4.验证组件库
